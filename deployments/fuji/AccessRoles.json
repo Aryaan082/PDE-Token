@@ -1,0 +1,197 @@
+{
+  "address": "0x447228bD392f746EA2fDaa289bB37E7D2B1bE998",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "enum Roles",
+          "name": "role",
+          "type": "uint8"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "RoleGranted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "enum Roles",
+          "name": "role",
+          "type": "uint8"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "RoleRevoked",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "getRole",
+      "outputs": [
+        {
+          "internalType": "enum Roles",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "enum Roles",
+          "name": "role",
+          "type": "uint8"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "grantRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "enum Roles",
+          "name": "role",
+          "type": "uint8"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "hasRole",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "revokeRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x8f6335ce4f0cc89f8b208844b256392ea086f4368d89c14abd17de09d39c92a1",
+  "receipt": {
+    "to": null,
+    "from": "0x6ef0d67Ca702fAE10E133c885df41F43c3a56136",
+    "contractAddress": "0x447228bD392f746EA2fDaa289bB37E7D2B1bE998",
+    "transactionIndex": 1,
+    "gasUsed": "337358",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xc53e5be5b6d14ba0088cfc35115919f50350585821e1f3c12773a91a32e42105",
+    "transactionHash": "0x8f6335ce4f0cc89f8b208844b256392ea086f4368d89c14abd17de09d39c92a1",
+    "logs": [],
+    "blockNumber": 30442579,
+    "cumulativeGasUsed": "463688",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "31c704e320e4e6ddb9435de80105c1f6",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"enum Roles\",\"name\":\"role\",\"type\":\"uint8\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"enum Roles\",\"name\":\"role\",\"type\":\"uint8\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getRole\",\"outputs\":[{\"internalType\":\"enum Roles\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"enum Roles\",\"name\":\"role\",\"type\":\"uint8\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"enum Roles\",\"name\":\"role\",\"type\":\"uint8\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/AccessRoles.sol\":\"AccessRoles\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":2000},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.4) (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0xa92e4fa126feb6907daa0513ddd816b2eb91f30a808de54f63c17d0e162c3439\",\"license\":\"MIT\"},\"src/AccessRoles.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.17;\\n\\nimport \\\"@openzeppelin/contracts/utils/Context.sol\\\";\\n\\nenum Roles {\\n\\tNonmerchant,\\n\\tMerchant,\\n\\tAdmin\\n}\\n\\ncontract AccessRoles is Context {\\n\\t// Mapping from address to role\\n\\tmapping(address => Roles) private _roles;\\n\\n\\tevent RoleGranted(Roles indexed role, address indexed account, address indexed sender);\\n\\n\\tevent RoleRevoked(Roles indexed role, address indexed account, address indexed sender);\\n\\n\\tconstructor() {\\n\\t\\t_roles[_msgSender()] = Roles.Admin;\\n\\t}\\n\\n\\tmodifier onlyRole(Roles role) {\\n\\t\\trequire(hasRole(role, _msgSender()), \\\"ERC721: required role not granted\\\");\\n\\t\\t_;\\n\\t}\\n\\n\\tfunction hasRole(Roles role, address account) public view returns (bool) {\\n\\t\\treturn _roles[account] == role;\\n\\t}\\n\\n\\tfunction getRole(address account) public view returns (Roles) {\\n\\t\\treturn _roles[account];\\n\\t}\\n\\n\\tfunction grantRole(Roles role, address account) public onlyRole(Roles.Admin) {\\n\\t\\t_grantRole(role, account);\\n\\t}\\n\\n\\tfunction revokeRole(address account) public onlyRole(Roles.Admin) {\\n\\t\\t_revokeRole(account);\\n\\t}\\n\\n\\tfunction _grantRole(Roles role, address account) internal virtual {\\n\\t\\tif (!hasRole(role, account)) {\\n\\t\\t\\t_roles[account] = role;\\n\\t\\t\\temit RoleGranted(role, account, _msgSender());\\n\\t\\t}\\n\\t}\\n\\n\\tfunction _revokeRole(address account) internal virtual {\\n\\t\\t_roles[account] = Roles.Nonmerchant;\\n\\t\\temit RoleRevoked(_roles[account], account, _msgSender());\\n\\t}\\n}\\n\",\"keccak256\":\"0x1373536eef594c1bab55a6dd7dff1585a96e25682ae536d7dce1347f0929c4fe\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50336000908152602081905260409020805460ff191660021790556104c48061003a6000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c806344276733146100515780635d5664e1146100a057806380e52e3f146100b55780639e97b8f6146100c8575b600080fd5b61008a61005f3660046103c3565b73ffffffffffffffffffffffffffffffffffffffff1660009081526020819052604090205460ff1690565b6040516100979190610414565b60405180910390f35b6100b36100ae366004610455565b6100eb565b005b6100b36100c33660046103c3565b610197565b6100db6100d6366004610455565b61023c565b6040519015158152602001610097565b60026100f7813361023c565b610188576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152602160248201527f4552433732313a20726571756972656420726f6c65206e6f74206772616e746560448201527f640000000000000000000000000000000000000000000000000000000000000060648201526084015b60405180910390fd5b6101928383610292565b505050565b60026101a3813361023c565b61022f576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152602160248201527f4552433732313a20726571756972656420726f6c65206e6f74206772616e746560448201527f6400000000000000000000000000000000000000000000000000000000000000606482015260840161017f565b6102388261033e565b5050565b6000826002811115610250576102506103e5565b73ffffffffffffffffffffffffffffffffffffffff831660009081526020819052604090205460ff16600281111561028a5761028a6103e5565b149392505050565b61029c828261023c565b6102385773ffffffffffffffffffffffffffffffffffffffff81166000908152602081905260409020805483919060ff191660018360028111156102e2576102e26103e5565b02179055503373ffffffffffffffffffffffffffffffffffffffff8216836002811115610311576103116103e5565b6040517f570d3756e5b890fbf84c01fc2daf898fa7e95ae3ca9f1ed5edf012eacb5c6ce690600090a45050565b73ffffffffffffffffffffffffffffffffffffffff81166000818152602081905260408120805460ff191690553391906040517f5a8379f4a3380f87fd5924475f76a3471ac8d775668601653e3f9ef69a3dd27190600090a450565b803573ffffffffffffffffffffffffffffffffffffffff811681146103be57600080fd5b919050565b6000602082840312156103d557600080fd5b6103de8261039a565b9392505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602160045260246000fd5b602081016003831061044f577f4e487b7100000000000000000000000000000000000000000000000000000000600052602160045260246000fd5b91905290565b6000806040838503121561046857600080fd5b82356003811061047757600080fd5b91506104856020840161039a565b9050925092905056fea26469706673582212208e307168cd1ab362a697c58d4b1229a6e582d3fc7e777da9d8c8d996d94699ad64736f6c63430008110033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061004c5760003560e01c806344276733146100515780635d5664e1146100a057806380e52e3f146100b55780639e97b8f6146100c8575b600080fd5b61008a61005f3660046103c3565b73ffffffffffffffffffffffffffffffffffffffff1660009081526020819052604090205460ff1690565b6040516100979190610414565b60405180910390f35b6100b36100ae366004610455565b6100eb565b005b6100b36100c33660046103c3565b610197565b6100db6100d6366004610455565b61023c565b6040519015158152602001610097565b60026100f7813361023c565b610188576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152602160248201527f4552433732313a20726571756972656420726f6c65206e6f74206772616e746560448201527f640000000000000000000000000000000000000000000000000000000000000060648201526084015b60405180910390fd5b6101928383610292565b505050565b60026101a3813361023c565b61022f576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152602160248201527f4552433732313a20726571756972656420726f6c65206e6f74206772616e746560448201527f6400000000000000000000000000000000000000000000000000000000000000606482015260840161017f565b6102388261033e565b5050565b6000826002811115610250576102506103e5565b73ffffffffffffffffffffffffffffffffffffffff831660009081526020819052604090205460ff16600281111561028a5761028a6103e5565b149392505050565b61029c828261023c565b6102385773ffffffffffffffffffffffffffffffffffffffff81166000908152602081905260409020805483919060ff191660018360028111156102e2576102e26103e5565b02179055503373ffffffffffffffffffffffffffffffffffffffff8216836002811115610311576103116103e5565b6040517f570d3756e5b890fbf84c01fc2daf898fa7e95ae3ca9f1ed5edf012eacb5c6ce690600090a45050565b73ffffffffffffffffffffffffffffffffffffffff81166000818152602081905260408120805460ff191690553391906040517f5a8379f4a3380f87fd5924475f76a3471ac8d775668601653e3f9ef69a3dd27190600090a450565b803573ffffffffffffffffffffffffffffffffffffffff811681146103be57600080fd5b919050565b6000602082840312156103d557600080fd5b6103de8261039a565b9392505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602160045260246000fd5b602081016003831061044f577f4e487b7100000000000000000000000000000000000000000000000000000000600052602160045260246000fd5b91905290565b6000806040838503121561046857600080fd5b82356003811061047757600080fd5b91506104856020840161039a565b9050925092905056fea26469706673582212208e307168cd1ab362a697c58d4b1229a6e582d3fc7e777da9d8c8d996d94699ad64736f6c63430008110033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 3500,
+        "contract": "src/AccessRoles.sol:AccessRoles",
+        "label": "_roles",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_address,t_enum(Roles)3493)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_enum(Roles)3493": {
+        "encoding": "inplace",
+        "label": "enum Roles",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_enum(Roles)3493)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => enum Roles)",
+        "numberOfBytes": "32",
+        "value": "t_enum(Roles)3493"
+      }
+    }
+  }
+}

@@ -65,6 +65,16 @@ const config: HardhatUserConfig = {
 			url: node_url('goerli'),
 			accounts: accounts('goerli'),
 		},
+		fuji: {
+			url: 'https://api.avax-test.network/ext/bc/C/rpc',
+			chainId: 43113,
+			accounts: accounts('mainnet'),
+		},
+		avalanche: {
+			url: 'https://api.avax.network/ext/bc/C/rpc',
+			chainId: 43114,
+			accounts: accounts('mainnet'),
+		},
 	}),
 	paths: {
 		sources: 'src',
