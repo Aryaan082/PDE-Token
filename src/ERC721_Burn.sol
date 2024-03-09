@@ -22,12 +22,12 @@ contract ERC721_Burn is ERC721 {
 	}
 
 	function setPDE(address PDE_) public {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(_access.hasRole(Roles.HeadAdmin, _msgSender()), "BURN: required role not granted");
 		_erc20_PDE = ERC20_PDE(PDE_);
 	}
 
 	function setAccessControl(address access_) public {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(_access.hasRole(Roles.HeadAdmin, _msgSender()), "BURN: required role not granted");
 		_access = AccessRoles(access_);
 	}
 
@@ -37,20 +37,29 @@ contract ERC721_Burn is ERC721 {
 	}
 
 	function safeMint(address to, uint256 tokensBurned) public virtual {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(
+			_access.hasRole(Roles.HeadAdmin, _msgSender()) || _access.hasRole(Roles.Admin, _msgSender()),
+			"BURN: required role not granted"
+		);
 		_mint(to, _tokenId);
 		_tokenIdToTokensBurned[_tokenId] = tokensBurned;
 		++_tokenId;
 	}
 
 	function burn(uint256 tokenId) public {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(
+			_access.hasRole(Roles.HeadAdmin, _msgSender()) || _access.hasRole(Roles.Admin, _msgSender()),
+			"BURN: required role not granted"
+		);
 		_burn(tokenId);
 		delete _tokenIdToTokensBurned[tokenId];
 	}
 
 	function setTokenURI(string memory _tokenURI) public virtual {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(
+			_access.hasRole(Roles.HeadAdmin, _msgSender()) || _access.hasRole(Roles.Admin, _msgSender()),
+			"BURN: required role not granted"
+		);
 		_defaultURI = _tokenURI;
 	}
 

@@ -25,13 +25,13 @@ describe('AccessRoles', function () {
 		const {AccessRoles, deployer} = await setup();
 
 		expect(await AccessRoles.hasRole(0, deployer.address)).equal(false);
-		expect(await AccessRoles.hasRole(2, deployer.address)).equal(true);
+		expect(await AccessRoles.hasRole(3, deployer.address)).equal(true);
 	});
 
 	it('tests getRole', async function () {
 		const {AccessRoles, deployer, accountOne} = await setup();
 
-		expect(await AccessRoles.getRole(deployer.address)).equal(2);
+		expect(await AccessRoles.getRole(deployer.address)).equal(3);
 		expect(await AccessRoles.getRole(accountOne.address)).equal(0);
 	});
 
@@ -61,7 +61,7 @@ describe('AccessRoles', function () {
 		expect(AccessRoles.hasRole(1, accountOne.address));
 
 		await expect(accountOne.AccessRoles.grantRole(2, accountTwo.address)).to.be.revertedWith(
-			'ERC721: required role not granted'
+			'AccessRoles: required role not granted'
 		);
 	});
 });

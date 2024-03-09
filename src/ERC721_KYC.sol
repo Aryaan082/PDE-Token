@@ -18,7 +18,7 @@ contract ERC721_KYC is ERC721 {
 	}
 
 	function setAccessControl(address access_) public {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(_access.hasRole(Roles.HeadAdmin, _msgSender()), "KYC: required role not granted");
 		_access = AccessRoles(access_);
 	}
 
@@ -36,39 +36,60 @@ contract ERC721_KYC is ERC721 {
 	}
 
 	function setTokenURI(uint256 tokenId, string memory _tokenURI) public virtual {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
-		require(_exists(tokenId), "ERC721: invalid token ID");
+		require(
+			_access.hasRole(Roles.HeadAdmin, _msgSender()) || _access.hasRole(Roles.Admin, _msgSender()),
+			"KYC: required role not granted"
+		);
+		require(_exists(tokenId), "KYC: invalid token ID");
 		_tokenURIs[tokenId] = _tokenURI;
 	}
 
 	function setDefaultTokenURI(string memory defaultTokenURI_) public virtual {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(
+			_access.hasRole(Roles.HeadAdmin, _msgSender()) || _access.hasRole(Roles.Admin, _msgSender()),
+			"KYC: required role not granted"
+		);
 		_defaultTokenURI = defaultTokenURI_;
 	}
 
 	function transferFrom(address from, address to, uint256 tokenId) public virtual override {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(
+			_access.hasRole(Roles.HeadAdmin, _msgSender()) || _access.hasRole(Roles.Admin, _msgSender()),
+			"KYC: required role not granted"
+		);
 		_transfer(from, to, tokenId);
 	}
 
 	function safeTransferFrom(address from, address to, uint256 tokenId) public virtual override {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(
+			_access.hasRole(Roles.HeadAdmin, _msgSender()) || _access.hasRole(Roles.Admin, _msgSender()),
+			"KYC: required role not granted"
+		);
 		safeTransferFrom(from, to, tokenId, "");
 	}
 
 	function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public virtual override {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(
+			_access.hasRole(Roles.HeadAdmin, _msgSender()) || _access.hasRole(Roles.Admin, _msgSender()),
+			"KYC: required role not granted"
+		);
 		_safeTransfer(from, to, tokenId, data);
 	}
 
 	function safeMint(address to) public virtual {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(
+			_access.hasRole(Roles.HeadAdmin, _msgSender()) || _access.hasRole(Roles.Admin, _msgSender()),
+			"KYC: required role not granted"
+		);
 		_safeMint(to, _tokenId);
 		++_tokenId;
 	}
 
 	function burn(uint256 tokenId) public virtual {
-		require(_access.hasRole(Roles.Admin, _msgSender()), "ERC721: required role not granted");
+		require(
+			_access.hasRole(Roles.HeadAdmin, _msgSender()) || _access.hasRole(Roles.Admin, _msgSender()),
+			"KYC: required role not granted"
+		);
 		_burn(tokenId);
 	}
 

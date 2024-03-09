@@ -6,7 +6,8 @@ import "@openzeppelin/contracts/utils/Context.sol";
 enum Roles {
 	Nonmerchant,
 	Merchant,
-	Admin
+	Admin,
+	HeadAdmin
 }
 
 contract AccessRoles is Context {
@@ -18,11 +19,14 @@ contract AccessRoles is Context {
 	event RoleRevoked(Roles indexed role, address indexed account, address indexed sender);
 
 	constructor() {
-		_roles[_msgSender()] = Roles.Admin;
+		_roles[_msgSender()] = Roles.HeadAdmin;
 	}
 
 	modifier onlyRole(Roles role) {
-		require(hasRole(role, _msgSender()), "ERC721: required role not granted");
+		require(
+			hasRole(role, _msgSender()) || _roles[_msgSender()] == Roles.HeadAdmin,
+			"AccessRoles: required role not granted"
+		);
 		_;
 	}
 
@@ -35,10 +39,28 @@ contract AccessRoles is Context {
 	}
 
 	function grantRole(Roles role, address account) public onlyRole(Roles.Admin) {
+		if (role == Roles.Admin || role == Roles.HeadAdmin) {
+			require(
+				hasRole(Roles.HeadAdmin, _msgSender()),
+				"AccessRoles: to grant admin or head admin role, head admin required"
+			);
+			_grantRole(role, account);
+			return;
+		}
+
 		_grantRole(role, account);
 	}
 
 	function revokeRole(address account) public onlyRole(Roles.Admin) {
+		if (_roles[account] == Roles.Admin || _roles[account] == Roles.HeadAdmin) {
+			require(
+				hasRole(Roles.HeadAdmin, _msgSender()),
+				"AccessRoles: to revoke admin or head admin role, head admin required"
+			);
+			_revokeRole(account);
+			return;
+		}
+
 		_revokeRole(account);
 	}
 

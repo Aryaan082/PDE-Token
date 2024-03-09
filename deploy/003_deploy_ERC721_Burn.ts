@@ -10,7 +10,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
 	await deploy('ERC721_Burn', {
 		from: deployer,
-		args: ['PDE_Burn', 'BURN', accessRolesAddress.address],
+		args: ['B', 'B', accessRolesAddress.address],
 		log: true,
 		autoMine: true,
 	});

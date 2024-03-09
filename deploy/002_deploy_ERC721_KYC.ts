@@ -10,7 +10,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
 	await deploy('ERC721_KYC', {
 		from: deployer,
-		args: ['PDE_KYC', 'KYC', accessRolesAddress.address],
+		args: ['A', 'A', accessRolesAddress.address],
 		log: true,
 		autoMine: true,
 	});

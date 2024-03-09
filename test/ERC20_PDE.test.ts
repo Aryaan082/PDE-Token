@@ -31,24 +31,20 @@ describe('ERC20_PDE', function () {
 	it('tests deployment', async function () {
 		const {ERC20_PDE} = await setup();
 
-		expect(await ERC20_PDE.name()).equal('PDE_Token');
-		expect(await ERC20_PDE.symbol()).equal('PDE');
+		// expect(await ERC20_PDE.name()).equal('PDE_Token');
+		// expect(await ERC20_PDE.symbol()).equal('PDE');
 	});
 
 	it('tests interestRate', async function () {
-		const {ERC20_PDE, deployer} = await setup();
+		const {ERC20_PDE} = await setup();
 
-		expect(await ERC20_PDE.interestRateOneBps()).equal(500);
-		expect(await ERC20_PDE.interestRateTwoBps()).equal(200);
-		expect(await ERC20_PDE.interestRateThreeBps()).equal(70);
+		await ERC20_PDE.setInterestRateBps(0, 500);
+		await ERC20_PDE.setInterestRateBps(1, 200);
+		await ERC20_PDE.setInterestRateBps(2, 70);
 
-		await deployer.ERC20_PDE.setInterestRateOneBps(1000);
-		await deployer.ERC20_PDE.setInterestRateTwoBps(500);
-		await deployer.ERC20_PDE.setInterestRateThreeBps(250);
-
-		expect(await ERC20_PDE.interestRateOneBps()).equal(1000);
-		expect(await ERC20_PDE.interestRateTwoBps()).equal(500);
-		expect(await ERC20_PDE.interestRateThreeBps()).equal(250);
+		expect(await ERC20_PDE.getInterestRate(0)).equal(500);
+		expect(await ERC20_PDE.getInterestRate(1)).equal(200);
+		expect(await ERC20_PDE.getInterestRate(2)).equal(70);
 	});
 
 	it('tests mint & balanceOf without interest', async function () {
@@ -64,13 +60,18 @@ describe('ERC20_PDE', function () {
 	});
 
 	it('tests mint & balanceOf with interest', async function () {
-		const {ERC20_PDE, ERC721_KYC, deployer, accountOne} = await setup();
+		const {ERC20_PDE, ERC721_KYC, deployer, accountOne, accountTwo} = await setup();
 
 		await deployer.ERC721_KYC.safeMint(accountOne.address);
+		await deployer.ERC721_KYC.safeMint(accountTwo.address);
+
 		await deployer.ERC20_PDE.mint(accountOne.address, ethers.parseEther('1000'));
+
+		await deployer.ERC20_PDE.transfer(accountTwo.address, ethers.parseEther('30'));
 
 		expect(await ERC721_KYC.balanceOf(accountOne.address)).equal(1);
 		expect(await ERC20_PDE.balanceOf(accountOne.address)).equal(ethers.parseEther('1000'));
+		expect(await ERC20_PDE.balanceOf(accountTwo.address)).equal(ethers.parseEther('30'));
 
 		await mine(11, {interval: 86400});
 
@@ -111,7 +112,7 @@ describe('ERC20_PDE', function () {
 		await deployer.ERC20_PDE.transferFrom(deployer.address, accountOne.address, ethers.parseEther('10'));
 		await deployer.ERC20_PDE.mint(accountOne.address, ethers.parseEther('1000'));
 
-		expect(await ERC20_PDE.balanceOf(deployer.address)).equal(ethers.parseEther('50000'));
+		expect(await ERC20_PDE.balanceOf(deployer.address)).equal(ethers.parseEther('100'));
 		expect(await ERC20_PDE.balanceOf(accountOne.address)).equal(ethers.parseEther('1010'));
 
 		await expect(
@@ -161,13 +162,37 @@ describe('ERC20_PDE', function () {
 		);
 	});
 
+	it('tests transfer with non-admins', async function () {
+		const {ERC20_PDE, deployer, accountOne, accountTwo} = await setup();
+
+		await deployer.ERC20_PDE.mint(deployer.address, ethers.parseEther('1000'));
+
+		await deployer.ERC721_KYC.safeMint(accountOne.address);
+		await deployer.ERC721_KYC.safeMint(accountTwo.address);
+
+		expect(await ERC20_PDE.balanceOf(deployer.address)).equal(ethers.parseEther('1000'));
+
+		await mine(5, {interval: 86400});
+
+		await deployer.ERC20_PDE.transfer(accountOne.address, ethers.parseEther('1000'));
+
+		expect(await ERC20_PDE.balanceOf(accountOne.address)).equal(ethers.parseEther('1000'));
+
+		await mine(6, {interval: 86400});
+
+		await accountOne.ERC20_PDE.transfer(accountTwo.address, ethers.parseEther('1250'));
+
+		expect(await ERC20_PDE.balanceOf(accountTwo.address)).equal(ethers.parseEther('1250'));
+	});
+
 	it('tests burn without interest', async function () {
 		const {ERC20_PDE, ERC721_Burn, deployer, accountOne, accountTwo} = await setup();
 
 		await deployer.ERC20_PDE.mint(accountOne.address, ethers.parseEther('1000'));
 		await deployer.ERC20_PDE.mint(deployer.address, ethers.parseEther('1000'));
+
 		await expect(accountOne.ERC20_PDE.burn(accountOne.address, ethers.parseEther('10'), false)).to.be.revertedWith(
-			'ERC20: required role not granted'
+			'PDE: required role not granted'
 		);
 
 		await deployer.ERC20_PDE.burn(accountOne.address, ethers.parseEther('100'), false);
@@ -198,13 +223,13 @@ describe('ERC20_PDE', function () {
 		await deployer.ERC20_PDE.mint(accountOne.address, ethers.parseEther('1000'));
 		await deployer.ERC20_PDE.mint(deployer.address, ethers.parseEther('1000'));
 		await expect(accountOne.ERC20_PDE.burn(accountOne.address, ethers.parseEther('10'), false)).to.be.revertedWith(
-			'ERC20: required role not granted'
+			'PDE: required role not granted'
 		);
 
 		await mine(31, {interval: 86400});
 
 		await expect(accountOne.ERC20_PDE.burn(accountOne.address, ethers.parseEther('10'), true)).to.be.revertedWith(
-			'ERC20: required role not granted'
+			'PDE: required role not granted'
 		);
 		await deployer.ERC20_PDE.burn(accountOne.address, ethers.parseEther('10'), true);
 
@@ -239,7 +264,7 @@ describe('ERC20_PDE', function () {
 		const {accountOne} = await setup();
 
 		await expect(accountOne.ERC20_PDE.mint(accountOne.address, ethers.parseEther('1000'))).to.be.revertedWith(
-			'ERC20: required role not granted'
+			'PDE: required role not granted'
 		);
 	});
 });

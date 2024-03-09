@@ -12,13 +12,18 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
 	const log = await deploy('ERC20_PDE', {
 		from: deployer,
-		args: ['PDE_Token', 'PDE', 500, 200, 70, accessRolesAddress.address, KYCAddress.address, burnAddress.address],
+		args: ['1', '1', accessRolesAddress.address, KYCAddress.address, burnAddress.address],
 		log: true,
 		autoMine: true,
 	});
 
 	await execute('ERC721_Burn', {from: deployer, log: true}, 'setPDE', log.address);
-	await execute('AccessRoles', {from: deployer, log: true}, 'grantRole', 2, log.address);
+	await execute('AccessRoles', {from: deployer, log: true}, 'grantRole', 3, log.address);
+	await execute('ERC20_PDE', {from: deployer, log: true}, 'setPeriodLengthDays', 30);
+	await execute('ERC20_PDE', {from: deployer, log: true}, 'setNumPeriods', 3);
+	await execute('ERC20_PDE', {from: deployer, log: true}, 'setInterestRateBps', 0, 500);
+	await execute('ERC20_PDE', {from: deployer, log: true}, 'setInterestRateBps', 1, 200);
+	await execute('ERC20_PDE', {from: deployer, log: true}, 'setInterestRateBps', 2, 70);
 };
 
 export default func;
