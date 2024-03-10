@@ -75,6 +75,11 @@ const config: HardhatUserConfig = {
 			chainId: 43114,
 			accounts: accounts('mainnet'),
 		},
+		optimism: {
+			url: 'https://optimism.llamarpc.com',
+			chainId: 10,
+			accounts: accounts('mainnet'),
+		},
 	}),
 	paths: {
 		sources: 'src',

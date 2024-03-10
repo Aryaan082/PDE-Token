@@ -5,6 +5,7 @@ import {setupUser, setupUsers} from './utils';
 import {mine} from '@nomicfoundation/hardhat-network-helpers';
 
 const setup = deployments.createFixture(async () => {
+	await deployments.fixture('AccessRoles');
 	await deployments.fixture('ERC721_Burn');
 	await deployments.fixture('ERC721_KYC');
 	await deployments.fixture('ERC20_PDE');
@@ -163,7 +164,7 @@ describe('ERC20_PDE', function () {
 	});
 
 	it('tests transfer with non-admins', async function () {
-		const {ERC20_PDE, deployer, accountOne, accountTwo} = await setup();
+		const {ERC20_PDE, deployer, accountOne, accountTwo, accountThree} = await setup();
 
 		await deployer.ERC20_PDE.mint(deployer.address, ethers.parseEther('1000'));
 
@@ -183,6 +184,37 @@ describe('ERC20_PDE', function () {
 		await accountOne.ERC20_PDE.transfer(accountTwo.address, ethers.parseEther('1250'));
 
 		expect(await ERC20_PDE.balanceOf(accountTwo.address)).equal(ethers.parseEther('1250'));
+
+		await mine(2, {interval: 86400});
+
+		await accountTwo.ERC20_PDE.transfer(accountThree.address, ethers.parseEther('1312.5'));
+
+		expect(await ERC20_PDE.balanceOf(accountTwo.address)).equal(0);
+		expect(await ERC20_PDE.balanceOf(accountThree.address)).equal(ethers.parseEther('1312.5'));
+	});
+
+	it('tests transfer between HA-HA, HA-NM, NM-NM', async function () {
+		const {ERC20_PDE, deployer, accountOne, accountTwo, accountThree} = await setup();
+
+		await deployer.ERC721_KYC.safeMint(accountTwo.address);
+		await deployer.AccessRoles.grantRole(3, accountOne.address);
+
+		await deployer.ERC20_PDE.mint(deployer.address, ethers.parseEther('1000'));
+
+		await deployer.ERC20_PDE.transfer(accountOne.address, ethers.parseEther('1000'));
+
+		expect(await ERC20_PDE.balanceOf(accountOne.address)).equal(ethers.parseEther('1000'));
+
+		await accountOne.ERC20_PDE.mint(accountOne.address, ethers.parseEther('1000'));
+
+		expect(await ERC20_PDE.balanceOf(accountOne.address)).equal(ethers.parseEther('2000'));
+		expect(await ERC20_PDE.balanceOf(deployer.address)).equal(ethers.parseEther('100'));
+
+		await accountOne.ERC20_PDE.transfer(accountTwo.address, ethers.parseEther('1233'));
+		await accountOne.ERC20_PDE.transfer(accountThree.address, ethers.parseEther('200'));
+
+		expect(await ERC20_PDE.balanceOf(accountTwo.address)).equal(ethers.parseEther('1233'));
+		expect(await ERC20_PDE.balanceOf(accountThree.address)).equal(ethers.parseEther('200'));
 	});
 
 	it('tests burn without interest', async function () {

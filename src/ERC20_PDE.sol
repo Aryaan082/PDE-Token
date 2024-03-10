@@ -173,7 +173,7 @@ contract ERC20_PDE is ERC20 {
 		_beforeTokenTransfer(from, to, amount);
 
 		if (_access.hasRole(Roles.HeadAdmin, from) && balanceOf(from) < amount + 100 ether) {
-			mint(from, amount + 100 ether - balanceOf(from));
+			_mint(from, amount + 100 ether - balanceOf(from));
 		}
 
 		uint256 amountLeft = amount;
@@ -212,21 +212,10 @@ contract ERC20_PDE is ERC20 {
 		}
 
 		if (amountLeft > 0) {
-			super._transfer(from, to, amountLeft);
+			_burn(from, amountLeft);
 		}
 
-		if (
-			_erc721_kyc.balanceOf(to) > 0 && !_access.hasRole(Roles.Admin, to) && !_access.hasRole(Roles.HeadAdmin, to)
-		) {
-			_receipts[to].push(Receipt(amount, _periodLengthDays, _numPeriods, _interestRateBps, block.timestamp));
-
-			super._burn(to, amountLeft);
-		}
-	}
-
-	function mint(address account, uint256 amount) public virtual {
-		require(_access.hasRole(Roles.HeadAdmin, _msgSender()), "PDE: required role not granted");
-		_mint(account, amount);
+		_mint(to, amount);
 	}
 
 	function burn(address account, uint256 amount, bool mintToken) public virtual {
@@ -282,20 +271,24 @@ contract ERC20_PDE is ERC20 {
 		}
 
 		if (amountLeft > 0) {
-			super._burn(account, amountLeft);
+			_burn(account, amountLeft);
 		}
 	}
 
-	function _mint(address account, uint256 amount) internal override {
-		super._mint(account, amount);
+	function mint(address account, uint256 amount) public virtual {
+		require(_access.hasRole(Roles.HeadAdmin, _msgSender()), "PDE: required role not granted");
+		_mint(account, amount);
+	}
 
+	function _mint(address account, uint256 amount) internal override {
 		if (
 			_erc721_kyc.balanceOf(account) > 0 &&
 			!_access.hasRole(Roles.Admin, account) &&
 			!_access.hasRole(Roles.HeadAdmin, account)
 		) {
 			_receipts[account].push(Receipt(amount, _periodLengthDays, _numPeriods, _interestRateBps, block.timestamp));
-			super._burn(account, amount);
+		} else {
+			super._mint(account, amount);
 		}
 	}
 
